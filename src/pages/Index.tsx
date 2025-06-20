@@ -3,9 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from "@/components/ui/carousel";
 import { ArrowDown, ArrowUp, Linkedin, Mail, Truck } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useAutoplayCarousel } from "@/hooks/useAutoplayCarousel";
 
 const Index = () => {
   const [formData, setFormData] = useState({
@@ -16,7 +17,10 @@ const Index = () => {
     message: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [api, setApi] = useState<CarouselApi>();
   const { toast } = useToast();
+
+  useAutoplayCarousel(api, 4000);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -112,30 +116,12 @@ const Index = () => {
       {/* Hero Section */}
       <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
         <Carousel 
+          setApi={setApi}
           className="absolute inset-0 w-full h-full"
           opts={{
             align: "start",
             loop: true,
           }}
-          plugins={[
-            {
-              init: (embla) => {
-                const autoplay = () => {
-                  if (embla.canScrollNext()) {
-                    embla.scrollNext();
-                  } else {
-                    embla.scrollTo(0);
-                  }
-                };
-                
-                const intervalId = setInterval(autoplay, 4000);
-                
-                embla.on('destroy', () => {
-                  clearInterval(intervalId);
-                });
-              }
-            }
-          ]}
         >
           <CarouselContent>
             {carouselImages.map((image, index) => (
