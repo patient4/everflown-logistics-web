@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowDown, ArrowUp, Linkedin, Mail } from "lucide-react";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { ArrowDown, ArrowUp, Linkedin, Mail, Truck } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const Index = () => {
@@ -33,7 +34,7 @@ const Index = () => {
       
       toast({
         title: "Message Sent Successfully!",
-        description: "Thank you for contacting Everflown Logistics. We'll get back to you within 24 hours.",
+        description: "Thank you for contacting Everflow Logistics. We'll get back to you within 24 hours.",
       });
       
       setFormData({
@@ -58,6 +59,21 @@ const Index = () => {
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const carouselImages = [
+    {
+      url: "https://images.unsplash.com/photo-1487887235947-a955ef187fcc?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80",
+      alt: "Truck shipment and logistics operations"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1582562124811-c09040d0a901?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80",
+      alt: "Cargo loading and freight management"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80",
+      alt: "Truck loading operations"
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation */}
@@ -65,7 +81,7 @@ const Index = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <div className="text-2xl font-bold text-blue-600">Everflown</div>
+              <div className="text-2xl font-bold text-blue-600">Everflow</div>
               <div className="ml-2 text-2xl font-light text-gray-800">Logistics</div>
             </div>
             <div className="hidden md:flex space-x-8">
@@ -80,15 +96,26 @@ const Index = () => {
 
       {/* Hero Section */}
       <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1487887235947-a955ef187fcc?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')`
-          }}
-        />
+        <Carousel className="absolute inset-0 w-full h-full">
+          <CarouselContent>
+            {carouselImages.map((image, index) => (
+              <CarouselItem key={index} className="w-full h-screen">
+                <div 
+                  className="w-full h-full bg-cover bg-center bg-no-repeat"
+                  style={{
+                    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('${image.url}')`
+                  }}
+                />
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="left-4" />
+          <CarouselNext className="right-4" />
+        </Carousel>
+        
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
           <div className="mb-8">
-            <div className="text-5xl md:text-7xl font-bold mb-4">Everflown</div>
+            <div className="text-5xl md:text-7xl font-bold mb-4">Everflow</div>
             <div className="text-3xl md:text-5xl font-light">Logistics</div>
           </div>
           <h1 className="text-xl md:text-2xl mb-8 font-light">
@@ -110,14 +137,14 @@ const Index = () => {
       <section id="about" className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">About Everflown Logistics</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">About Everflow Logistics</h2>
             <div className="w-24 h-1 bg-blue-600 mx-auto"></div>
           </div>
           
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-                Everflown Logistics is a premier freight brokerage company dedicated to revolutionizing 
+                Everflow Logistics is a premier freight brokerage company dedicated to revolutionizing 
                 the transportation industry through innovative solutions and personalized service. With 
                 years of experience in logistics management, we bridge the gap between shippers and 
                 carriers, ensuring efficient and cost-effective freight movement across the nation.
@@ -174,7 +201,7 @@ const Index = () => {
             <Card className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
               <CardHeader className="text-center">
                 <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-600 transition-colors">
-                  <ArrowUp className="w-8 h-8 text-blue-600 group-hover:text-white transition-colors" />
+                  <Truck className="w-8 h-8 text-blue-600 group-hover:text-white transition-colors" />
                 </div>
                 <CardTitle className="text-xl">Freight Matching</CardTitle>
               </CardHeader>
@@ -204,7 +231,7 @@ const Index = () => {
             <Card className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
               <CardHeader className="text-center">
                 <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-600 transition-colors">
-                  <Mail className="w-8 h-8 text-blue-600 group-hover:text-white transition-colors" />
+                  <Truck className="w-8 h-8 text-blue-600 group-hover:text-white transition-colors" />
                 </div>
                 <CardTitle className="text-xl">Load Tracking</CardTitle>
               </CardHeader>
@@ -238,14 +265,14 @@ const Index = () => {
       <section className="py-20 bg-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Why Choose Everflown Logistics</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Why Choose Everflow Logistics</h2>
             <div className="w-24 h-1 bg-blue-600 mx-auto"></div>
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center">
               <div className="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                <ArrowUp className="w-10 h-10 text-white" />
+                <Truck className="w-10 h-10 text-white" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-4">Reliable Network</h3>
               <p className="text-gray-600">
@@ -412,7 +439,7 @@ const Index = () => {
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-8 md:mb-0">
               <div className="flex items-center mb-4">
-                <div className="text-2xl font-bold text-blue-400">Everflown</div>
+                <div className="text-2xl font-bold text-blue-400">Everflow</div>
                 <div className="ml-2 text-2xl font-light">Logistics</div>
               </div>
               <p className="text-gray-400">Simplifying Freight, Empowering Logistics</p>
@@ -420,7 +447,7 @@ const Index = () => {
             
             <div className="flex space-x-6">
               <a
-                href="https://linkedin.com/company/everflown-logistics"
+                href="https://linkedin.com/company/everflow-logistics"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-blue-400 transition-colors"
@@ -429,7 +456,7 @@ const Index = () => {
                 <Linkedin className="w-6 h-6" />
               </a>
               <a
-                href="mailto:contact@everflownlogistics.com"
+                href="mailto:contact@everflowlogistics.com"
                 className="text-gray-400 hover:text-blue-400 transition-colors"
                 aria-label="Email"
               >
@@ -440,7 +467,7 @@ const Index = () => {
           
           <div className="border-t border-gray-800 mt-8 pt-8 text-center">
             <p className="text-gray-400">
-              © 2025 Everflown Logistics. All rights reserved.
+              © 2025 Everflow Logistics. All rights reserved.
             </p>
           </div>
         </div>
