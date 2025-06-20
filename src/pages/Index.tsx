@@ -1,5 +1,4 @@
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -71,6 +70,22 @@ const Index = () => {
     {
       url: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80",
       alt: "Truck loading operations"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80",
+      alt: "Semi truck on highway transport"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80",
+      alt: "Shipping containers and cargo yard"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80",
+      alt: "Warehouse logistics and distribution"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1553413077-190dd305871c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80",
+      alt: "Truck fleet management"
     }
   ];
 
@@ -96,12 +111,37 @@ const Index = () => {
 
       {/* Hero Section */}
       <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
-        <Carousel className="absolute inset-0 w-full h-full">
+        <Carousel 
+          className="absolute inset-0 w-full h-full"
+          opts={{
+            align: "start",
+            loop: true,
+          }}
+          plugins={[
+            {
+              init: (embla) => {
+                const autoplay = () => {
+                  if (embla.canScrollNext()) {
+                    embla.scrollNext();
+                  } else {
+                    embla.scrollTo(0);
+                  }
+                };
+                
+                const intervalId = setInterval(autoplay, 4000);
+                
+                embla.on('destroy', () => {
+                  clearInterval(intervalId);
+                });
+              }
+            }
+          ]}
+        >
           <CarouselContent>
             {carouselImages.map((image, index) => (
               <CarouselItem key={index} className="w-full h-screen">
                 <div 
-                  className="w-full h-full bg-cover bg-center bg-no-repeat"
+                  className="w-full h-full bg-cover bg-center bg-no-repeat transition-all duration-1000"
                   style={{
                     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('${image.url}')`
                   }}
